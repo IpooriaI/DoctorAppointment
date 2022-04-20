@@ -1,10 +1,6 @@
 ﻿using DoctorAppointment.Services.Doctors.Contracts;
 using DoctorAppointment.Services.Patients.Contracts;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DoctorAppointment.Services.Appointments.Contracts
 {

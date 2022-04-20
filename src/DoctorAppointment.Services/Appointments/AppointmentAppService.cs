@@ -2,11 +2,7 @@
 using DoctorAppointment.Infrastructure.Application;
 using DoctorAppointment.Services.Appointments.Contracts;
 using DoctorAppointment.Services.Appointments.Exceptions;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DoctorAppointment.Services.Appointments
 {
