@@ -10,7 +10,7 @@ namespace BookStore.Test.Tools
 {
     public static class BookServiceTools
     {
-        public static AddBookDto GenerateAddBookDto(Category category)
+        public static AddBookDto GenerateAddBookDto(int id)
         {
             return new AddBookDto
             {
@@ -18,7 +18,7 @@ namespace BookStore.Test.Tools
                 Author = "ali",
                 Description = "A new book",
                 Pages = 30,
-                CategoryId = category.Id
+                CategoryId = id
             };
         }
     }

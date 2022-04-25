@@ -6,6 +6,7 @@ using BookStore.Persistence.EF.Books;
 using BookStore.Persistence.EF.Categories;
 using BookStore.Services.Books;
 using BookStore.Services.Books.Contracts;
+using BookStore.Services.Books.Exceptions;
 using BookStore.Services.Categories;
 using BookStore.Services.Categories.Contracts;
 using BookStore.Test.Tools;
@@ -25,6 +26,7 @@ namespace BookStore.Services.Test.Unit.Categories
         private readonly UnitOfWork _unitOfWork;
         private readonly BookService _sut;
         private readonly BookRepository _repository;
+        private readonly CategoryRepository _categoryRepository;
 
         public BookServiceTests()
         {
@@ -32,7 +34,9 @@ namespace BookStore.Services.Test.Unit.Categories
                 .CreateDataContext<EFDataContext>();
             _unitOfWork = new EFUnitOfWork(_dataContext);
             _repository = new EFBookRepository(_dataContext);
-            _sut = new BookAppService(_repository, _unitOfWork);
+            _categoryRepository = new EFCategoryRepository(_dataContext);
+            _sut = new BookAppService
+                (_repository, _unitOfWork,_categoryRepository);
         }
 
         [Fact]
@@ -40,7 +44,7 @@ namespace BookStore.Services.Test.Unit.Categories
         {
             var category = CategoryServiceTools.GenerateCategory("asd");
             _dataContext.Manipulate(_ => _.Categories.Add(category));
-            var dto = BookServiceTools.GenerateAddBookDto(category);
+            var dto = BookServiceTools.GenerateAddBookDto(category.Id);
 
             _sut.Add(dto);
             _dataContext.Books.Should()
@@ -52,7 +56,11 @@ namespace BookStore.Services.Test.Unit.Categories
         [Fact]
         public void Add_should_throw_wrong_category_if_categoryid_is_wrong()
         {
-          
+            int fakeId = 1000;
+            var dto = BookServiceTools.GenerateAddBookDto(fakeId);
+            
+            Action expected =()=> _sut.Add(dto);
+            expected.Should().ThrowExactly<CategoryDoesNotExistException>();
         }
     }
 
