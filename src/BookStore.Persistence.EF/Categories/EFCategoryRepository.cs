@@ -21,6 +21,11 @@ namespace BookStore.Persistence.EF.Categories
             _dataContext.Categories.Add(category);
         }
 
+        public void Delete(Category category)
+        {
+            _dataContext.Remove(category);
+        }
+
         public IList<GetCategoryDto> GetAll()
         {
             return _dataContext.Categories

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace BookStore.Services.Categories.Contracts
 {
-    internal class UpdateCategoryDto
+    public class UpdateCategoryDto
     {
+        public string Title { get; set; }
     }
 }

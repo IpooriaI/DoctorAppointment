@@ -11,6 +11,8 @@ namespace BookStore.Services.Categories.Contracts
     public interface CategoryRepository : Repository
     {
         void Add(Category category);
+        Category GetById(int id);
         IList<GetCategoryDto> GetAll();
+        void Delete(Category category);
     }
 }

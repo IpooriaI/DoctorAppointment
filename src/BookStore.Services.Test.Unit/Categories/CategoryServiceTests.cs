@@ -56,10 +56,55 @@ namespace BookStore.Services.Test.Unit.Categories
         }
 
         [Fact]
-        public void Update_all_updates_the_selected_catagory()
+        public void Get_by_id_should_get_the_proper_category()
         {
+            CreateCategoriesInDataBase();
+
+            var expected = _sut.GetById(2);
+
+            expected.Id.Should().Be(2);
+            expected.Title.Should().Be("dummy2");
+        }
+
+        [Fact]
+        public void Update_should_update_the_selected_catagory_properly()
+        {
+            CreateCategoriesInDataBase();
+
+            UpdateCategoryDto dto = GenerateUpdateCategoryDto();
+
+            var expected = _sut.GetById(2);
+            expected.Title.Should().Be("dummy2");
+
+            _sut.Update(2, dto);
+
+            expected.Title.Should().Be("Updated");
             
         }
+
+        [Fact]
+        public void Delete_Deletes_the_selected_category_properly()
+        {
+            CreateCategoriesInDataBase();
+
+            var expected = _sut.GetAll();
+            expected.Should().HaveCount(3);
+
+            _sut.Delete(1);
+
+            expected = _sut.GetAll();
+            expected.Should().HaveCount(2);
+        }
+
+
+
+
+
+
+
+
+
+
 
         private void CreateCategoriesInDataBase()
         {
@@ -78,6 +123,14 @@ namespace BookStore.Services.Test.Unit.Categories
             return new AddCategoryDto
             {
                 Title = "dummy"
+            };
+        }
+
+        private static UpdateCategoryDto GenerateUpdateCategoryDto()
+        {
+            return new UpdateCategoryDto
+            {
+                Title = "Updated"
             };
         }
     }

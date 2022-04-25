@@ -33,9 +33,30 @@ namespace BookStore.Services.Categories
             _unitOfWork.Commit();
         }
 
+        public Category GetById(int id)
+        {
+            return _repository.GetById(id);
+        }
+
         public IList<GetCategoryDto> GetAll()
         {
             return _repository.GetAll();
+        }
+
+        public void Update(int id,UpdateCategoryDto dto)
+        {
+            var category = _repository.GetById(id);
+
+            category.Title = dto.Title;
+            _unitOfWork.Commit();
+        }
+
+        public void Delete(int id)
+        {
+            var category = _repository.GetById(id);
+
+            _repository.Delete(category);
+            _unitOfWork.Commit();
         }
     }
 }
