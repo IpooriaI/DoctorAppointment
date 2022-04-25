@@ -1,6 +1,7 @@
 ﻿using BookStore.Services.Categories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace BookStore.RestAPI.Controllers
 {
@@ -18,6 +19,24 @@ namespace BookStore.RestAPI.Controllers
         public void Add(AddCategoryDto dto)
         {
             _service.Add(dto);
+        }
+        
+        [HttpGet]
+        public IList<GetCategoryDto> GetAll()
+        {
+            return _service.GetAll();
+        }
+
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            _service.Delete(id);
+        }
+
+        [HttpPut("{id}")]
+        public void Update(int id,UpdateCategoryDto dto)
+        {
+            _service.Update(id,dto);
         }
     }
 }
