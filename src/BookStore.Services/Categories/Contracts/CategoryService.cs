@@ -1,10 +1,6 @@
 ﻿using BookStore.Entities;
 using BookStore.Infrastructure.Application;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookStore.Services.Categories.Contracts
 {
@@ -13,7 +9,7 @@ namespace BookStore.Services.Categories.Contracts
         void Add(AddCategoryDto dto);
         Category GetById(int id);
         IList<GetCategoryDto> GetAll();
-        void Update(int id,UpdateCategoryDto dto);
+        void Update(int id, UpdateCategoryDto dto);
         void Delete(int id);
     }
 }

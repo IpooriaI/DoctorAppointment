@@ -1,10 +1,4 @@
-﻿using BookStore.Entities;
-using BookStore.Services.Books.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BookStore.Services.Books.Contracts;
 
 namespace BookStore.Test.Tools
 {

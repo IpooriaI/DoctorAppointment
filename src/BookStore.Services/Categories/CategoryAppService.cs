@@ -1,11 +1,7 @@
 ﻿using BookStore.Entities;
 using BookStore.Infrastructure.Application;
 using BookStore.Services.Categories.Contracts;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookStore.Services.Categories
 {
@@ -13,10 +9,10 @@ namespace BookStore.Services.Categories
     {
         private readonly CategoryRepository _repository;
         private readonly UnitOfWork _unitOfWork;
-        
-            public CategoryAppService(
-                CategoryRepository repository ,
-                UnitOfWork unitOfWork)
+
+        public CategoryAppService(
+            CategoryRepository repository,
+            UnitOfWork unitOfWork)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
@@ -43,7 +39,7 @@ namespace BookStore.Services.Categories
             return _repository.GetAll();
         }
 
-        public void Update(int id,UpdateCategoryDto dto)
+        public void Update(int id, UpdateCategoryDto dto)
         {
             var category = _repository.GetById(id);
 

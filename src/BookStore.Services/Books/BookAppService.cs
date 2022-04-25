@@ -2,13 +2,7 @@
 using BookStore.Infrastructure.Application;
 using BookStore.Services.Books.Contracts;
 using BookStore.Services.Books.Exceptions;
-using BookStore.Services.Categories;
 using BookStore.Services.Categories.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookStore.Services.Books
 {
@@ -39,9 +33,9 @@ namespace BookStore.Services.Books
                 CategoryId = dto.CategoryId,
             };
 
-            var category  = _categoryRepository.GetById(dto.CategoryId);
+            var category = _categoryRepository.GetById(dto.CategoryId);
 
-            if(category == null)
+            if (category == null)
             {
                 throw new CategoryDoesNotExistException();
             }

@@ -1,11 +1,6 @@
 ﻿using BookStore.Entities;
 using BookStore.Persistence.EF.Categories;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookStore.Persistence.EF
 {
@@ -15,7 +10,7 @@ namespace BookStore.Persistence.EF
         public EFDataContext(string connectionString) :
             this(new DbContextOptionsBuilder().UseSqlServer(connectionString).Options)
         { }
-       
+
         public EFDataContext(DbContextOptions options) : base(options)
         {
         }
@@ -23,11 +18,11 @@ namespace BookStore.Persistence.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             modelBuilder.ApplyConfigurationsFromAssembly
                 (typeof(CategoryEntityMap).Assembly);
         }
-       
+
         public DbSet<Category> Categories { get; set; }
         public DbSet<Book> Books { get; set; }
     }

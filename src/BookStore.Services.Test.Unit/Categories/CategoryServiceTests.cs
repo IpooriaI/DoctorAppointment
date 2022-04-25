@@ -7,11 +7,7 @@ using BookStore.Services.Categories;
 using BookStore.Services.Categories.Contracts;
 using BookStore.Test.Tools;
 using FluentAssertions;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace BookStore.Services.Test.Unit.Categories
@@ -22,14 +18,14 @@ namespace BookStore.Services.Test.Unit.Categories
         private readonly UnitOfWork _unitOfWork;
         private readonly CategoryService _sut;
         private readonly CategoryRepository _repository;
-        
+
         public CategoryServiceTests()
         {
             _dataContext = new EFInMemoryDatabase()
                 .CreateDataContext<EFDataContext>();
             _unitOfWork = new EFUnitOfWork(_dataContext);
             _repository = new EFCategoryRepository(_dataContext);
-            _sut = new CategoryAppService(_repository,_unitOfWork);
+            _sut = new CategoryAppService(_repository, _unitOfWork);
         }
 
         [Fact]
@@ -74,7 +70,7 @@ namespace BookStore.Services.Test.Unit.Categories
             UpdateCategoryDto dto = CategoryServiceTools
                 .GenerateUpdateCategoryDto("DummyTest");
 
-            Category category = 
+            Category category =
                 CategoryServiceTools.GenerateCategory(dto.Title);
 
             _dataContext.Manipulate(_ => _.Categories.Add(category));

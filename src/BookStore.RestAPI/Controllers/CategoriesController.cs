@@ -1,5 +1,4 @@
 ﻿using BookStore.Services.Categories.Contracts;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -20,7 +19,7 @@ namespace BookStore.RestAPI.Controllers
         {
             _service.Add(dto);
         }
-        
+
         [HttpGet]
         public IList<GetCategoryDto> GetAll()
         {
@@ -34,9 +33,9 @@ namespace BookStore.RestAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public void Update(int id,UpdateCategoryDto dto)
+        public void Update(int id, UpdateCategoryDto dto)
         {
-            _service.Update(id,dto);
+            _service.Update(id, dto);
         }
     }
 }
