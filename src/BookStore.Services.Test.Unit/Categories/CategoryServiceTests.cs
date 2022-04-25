@@ -5,6 +5,7 @@ using BookStore.Persistence.EF;
 using BookStore.Persistence.EF.Categories;
 using BookStore.Services.Categories;
 using BookStore.Services.Categories.Contracts;
+using BookStore.Test.Tools;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,8 @@ namespace BookStore.Services.Test.Unit.Categories
         [Fact]
         public void Add_adds_category_properly()
         {
-            AddCategoryDto dto = GenerateAddCategoryDto();
+            AddCategoryDto dto = CategoryServiceTools
+                .GenerateAddCategoryDto("dummyname");
 
             _sut.Add(dto);
 
@@ -69,38 +71,34 @@ namespace BookStore.Services.Test.Unit.Categories
         [Fact]
         public void Update_should_update_the_selected_catagory_properly()
         {
-            CreateCategoriesInDataBase();
+            UpdateCategoryDto dto = CategoryServiceTools
+                .GenerateUpdateCategoryDto("DummyTest");
 
-            UpdateCategoryDto dto = GenerateUpdateCategoryDto();
+            Category category = 
+                CategoryServiceTools.GenerateCategory(dto.Title);
 
-            var expected = _sut.GetById(2);
-            expected.Title.Should().Be("dummy2");
+            _dataContext.Manipulate(_ => _.Categories.Add(category));
 
-            _sut.Update(2, dto);
+            _sut.Update(category.Id, dto);
 
-            expected.Title.Should().Be("Updated");
-            
+            category.Title.Should().Be(dto.Title);
         }
 
         [Fact]
         public void Delete_Deletes_the_selected_category_properly()
         {
-            CreateCategoriesInDataBase();
+            AddCategoryDto dto = CategoryServiceTools
+                .GenerateAddCategoryDto("DummyName");
 
-            var expected = _sut.GetAll();
-            expected.Should().HaveCount(3);
+            Category category = CategoryServiceTools
+                .GenerateCategory(dto.Title);
 
-            _sut.Delete(1);
+            _dataContext.Manipulate(_ => _.Categories.Add(category));
 
-            expected = _sut.GetAll();
-            expected.Should().HaveCount(2);
+            _sut.Delete(category.Id);
+            
+            category.Should().BeNull();
         }
-
-
-
-
-
-
 
 
 
@@ -118,20 +116,5 @@ namespace BookStore.Services.Test.Unit.Categories
             _.Categories.AddRange(categories));
         }
 
-        private static AddCategoryDto GenerateAddCategoryDto()
-        {
-            return new AddCategoryDto
-            {
-                Title = "dummy"
-            };
-        }
-
-        private static UpdateCategoryDto GenerateUpdateCategoryDto()
-        {
-            return new UpdateCategoryDto
-            {
-                Title = "Updated"
-            };
-        }
     }
 }
