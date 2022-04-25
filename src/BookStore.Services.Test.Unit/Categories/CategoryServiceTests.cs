@@ -96,8 +96,9 @@ namespace BookStore.Services.Test.Unit.Categories
             _dataContext.Manipulate(_ => _.Categories.Add(category));
 
             _sut.Delete(category.Id);
-            
-            category.Should().BeNull();
+
+            var expected = _sut.GetById(category.Id);
+            expected.Should().BeNull();
         }
 
 
