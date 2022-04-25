@@ -24,8 +24,7 @@ namespace BookStore.Services.Test.Unit.Categories
         
         public CategoryServiceTests()
         {
-            _dataContext =
-                new EFInMemoryDatabase()
+            _dataContext = new EFInMemoryDatabase()
                 .CreateDataContext<EFDataContext>();
             _unitOfWork = new EFUnitOfWork(_dataContext);
             _repository = new EFCategoryRepository(_dataContext);
@@ -54,6 +53,12 @@ namespace BookStore.Services.Test.Unit.Categories
             expected.Should().Contain(_ => _.Title == "dummy1");
             expected.Should().Contain(_ => _.Title == "dummy2");
             expected.Should().Contain(_ => _.Title == "dummy3");
+        }
+
+        [Fact]
+        public void Update_all_updates_the_selected_catagory()
+        {
+            
         }
 
         private void CreateCategoriesInDataBase()
