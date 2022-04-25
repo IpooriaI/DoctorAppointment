@@ -1,6 +1,7 @@
 ﻿using BookStore.Entities;
 using BookStore.Infrastructure.Application;
 using BookStore.Services.Categories.Contracts;
+using BookStore.Services.Categories.Exceptions;
 using System.Collections.Generic;
 
 namespace BookStore.Services.Categories
@@ -50,6 +51,11 @@ namespace BookStore.Services.Categories
         public void Delete(int id)
         {
             var category = _repository.GetById(id);
+
+            if (category == null)
+            {
+                throw new CategoryDosntExistException();
+            }
 
             _repository.Delete(category);
             _unitOfWork.Commit();

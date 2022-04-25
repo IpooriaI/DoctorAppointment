@@ -5,8 +5,10 @@ using BookStore.Persistence.EF;
 using BookStore.Persistence.EF.Categories;
 using BookStore.Services.Categories;
 using BookStore.Services.Categories.Contracts;
+using BookStore.Services.Categories.Exceptions;
 using BookStore.Test.Tools;
 using FluentAssertions;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -85,16 +87,28 @@ namespace BookStore.Services.Test.Unit.Categories
         {
             AddCategoryDto dto = CategoryServiceTools
                 .GenerateAddCategoryDto("DummyName");
-
             Category category = CategoryServiceTools
                 .GenerateCategory(dto.Title);
 
             _dataContext.Manipulate(_ => _.Categories.Add(category));
-
             _sut.Delete(category.Id);
 
             var expected = _sut.GetById(category.Id);
             expected.Should().BeNull();
+        }
+
+        [Fact]
+        public void Delete_should_throw_category_not_found_exception_if_category_doesnt_exist()
+        {
+            AddCategoryDto dto = CategoryServiceTools
+                .GenerateAddCategoryDto("DummyName");
+            Category category = CategoryServiceTools
+                .GenerateCategory(dto.Title);
+            
+            
+            Action expected = () =>  _sut.Delete(category.Id);
+
+            expected.Should().ThrowExactly<CategoryDosntExistException>();
         }
 
 
@@ -109,6 +123,7 @@ namespace BookStore.Services.Test.Unit.Categories
                 new Category { Title = "dummy2"},
                 new Category { Title = "dummy3"}
             };
+
             _dataContext.Manipulate(_ =>
             _.Categories.AddRange(categories));
         }

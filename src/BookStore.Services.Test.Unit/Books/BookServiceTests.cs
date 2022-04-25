@@ -1,4 +1,5 @@
-﻿using BookStore.Infrastructure.Application;
+﻿using BookStore.Entities;
+using BookStore.Infrastructure.Application;
 using BookStore.Infrastructure.Test;
 using BookStore.Persistence.EF;
 using BookStore.Persistence.EF.Books;
@@ -10,6 +11,7 @@ using BookStore.Services.Categories.Contracts;
 using BookStore.Test.Tools;
 using FluentAssertions;
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace BookStore.Services.Test.Unit.Categories
@@ -55,6 +57,11 @@ namespace BookStore.Services.Test.Unit.Categories
             expected.Should().ThrowExactly<CategoryDoesNotExistException>();
         }
 
+        [Fact]
+        public void GetAll_should_get_all_books_properly()
+        {
+
+        }
 
     }
 
